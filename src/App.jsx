@@ -1,10 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FiArrowRight } from 'react-icons/fi'
 import Navbar from "./components/Navbar"
 import './App.css'
 
 
+
 function App() {
+
+  const TOTAL_ITEMS = 4;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % TOTAL_ITEMS);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const handleItemClick = (index) => {
+    setActiveIndex(index);
+    setIsPaused(true);
+  };
+
+
   return (
     <div className="min-h-screen bg-white text-gray-900 font-manrope main px-6 w-full">
       <Navbar />
@@ -55,87 +77,71 @@ function App() {
             <p className="text-[12px] font-normal leading-[12px] tracking-[0.05em] text-black-900">Selected Work</p>
           </div>
           <h5 className="text-[18px] font-normal leading-[25px] tracking-[2%]"> <span className="font-semibold">Designing solutions</span>, not just screens.</h5>
-          <p className="text-[14px] font-normal leading-[28px] text-black-800 tracking-[0.05em] max-w-xl">
+          <p className="text-[14px] font-normal leading-[28px] text-black-900 tracking-[0.0125em] max-w-xl">
             Each project reflects my process — understanding users, exploring ideas, and crafting experiences that are both useful and delightful.
           </p>
         </div>
-        <div className="work-cards-container">
-          <div className="work-card bg-[#f4f5f6] flex flex-col flex-start text-left rounded-xl p-6 mb-6 gap-6">
-            <div className="flex flex-col gap-4 project-info max-w-[600px] w-full">
-              <img src="/src/assets/images/my-photo.png" className="w-10 h-10 rounded-sm" alt="Project 1" />
-              <div className="flex flex-col gap-1">
-                <h6 className="font-normal text-[16px] leading-[20px] tracking-[0.025em] text-black-900">CubiLock</h6>
-                <p className="font-semibold text-[10px] leading-[12px] tracking-[0.05em] text-black-800">B2B DEVICE MANAGEMENT PLATFORM</p>
+        <div className="work-section grid grid-cols-3 gap-3 p-6">
+          <div className="work-list flex col-span-1 flex-col gap-3 ">
+            <div onClick={() => handleItemClick(0)} className={`work-listing cursor-pointer transition-all flex flex-col items-start gap-3 p-4 project-info max-w-[600px] rounded-lg w-full ${activeIndex === 0 ? "work-active" : ""}`}>
+                <div className="flex flex-col gap-1">
+                  <h6 className="font-normal text-[16px] text-left leading-[20px] tracking-[0.025em] text-black-900">CubiLock</h6>
+                  <p className="font-semibold text-[10px] text-left leading-[12px] tracking-[0.05em] text-black-800">B2B DEVICE MANAGEMENT PLATFORM</p>
+                </div>
+              <p className="text-[12px] text-left font-light leading-[24px] tracking-[0.05em] text-black-80">A centralized platform for large-scale device rental clients to monitor, track, and manage fleets through geofencing, data usage insights, and a dynamic dashboard.</p>
+              <div className="flex flex-row gap-2 items-center"> 
+                <a href="#" className={`text-[12px] font-medium text-black-900 underline transition-all ${activeIndex === 0 ? "block" : "hidden"}`}>View Project Details</a>
+                <FiArrowRight size={12} className={`${activeIndex === 0 ? "block" : "hidden"}`} />
               </div>
-              <p className="text-[14px] font-light leading-[24px] tracking-[0.05em] text-black-80">A centralized platform for large-scale device rental clients to monitor, track, and manage fleets through geofencing, data usage insights, and a dynamic dashboard.</p>
             </div>
-            <div className="images-container grid grid-rows-2 grid-cols-3 gap-6">
-              <img src="/src/assets/images/cblk-1.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 1" />
-              <img src="/src/assets/images/cblk-2.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 2" />
-              <img src="/src/assets/images/cblk-3.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 3" />
-              <img src="/src/assets/images/cblk-4.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 1" />
-              <img src="/src/assets/images/cblk-5.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 2" />
-              <img src="/src/assets/images/cblk-6.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 3" /> 
-            </div>
-            <a href="#" className="text-[14px] font-medium text-black-900 underline hover:cursor-pointer hover:text-black-900">View Project Details</a>
-          </div>
-          <div className="work-card bg-[#f4f5f6] flex flex-col flex-start text-left rounded-xl p-6 mb-6 gap-6">
-            <div className="flex flex-col gap-4 project-info max-w-[600px] w-full">
-              <img src="/src/assets/images/my-photo.png" className="w-10 h-10 rounded-sm" alt="Project 1" />
-              <div className="flex flex-col gap-1">
-                <h6 className="font-normal text-[16px] leading-[20px] tracking-[0.025em] text-black-900">CubiVue</h6>
-                <p className="font-semibold text-[10px] leading-[12px] tracking-[0.05em] text-black-800">B2B SaaS</p>
+            <div onClick={() => handleItemClick(1)} className={`work-listing cursor-pointer transition-all flex flex-col items-start gap-3 p-4 project-info max-w-[600px] rounded-lg w-full ${activeIndex === 1 ? "work-active" : ""}`}>
+                <div className="flex flex-col gap-1">
+                  <h6 className="font-normal text-[16px] text-left leading-[20px] tracking-[0.025em] text-black-900">CubiVue</h6>
+                  <p className="font-semibold text-[10px] text-left leading-[12px] tracking-[0.05em] text-black-800">B2B SaaS</p>
+                </div>
+              <p className="text-[12px] text-left font-light leading-[24px] tracking-[0.05em] text-black-80">CubiVue is a SaaS platform for route optimization, helping businesses efficiently plan and manage last-mile deliveries while improving operational performance.</p>
+              <div className="flex flex-row gap-2 items-center"> 
+                <a href="#" className={`text-[12px] font-medium text-black-900 underline transition-all ${activeIndex === 1 ? "block" : "hidden"}`}>View Project Details</a>
+                <FiArrowRight size={12} className={`${activeIndex === 1 ? "block" : "hidden"}`} />
               </div>
-              <p className="text-[14px] font-light leading-[24px] tracking-[0.05em] text-black-80">CubiVue is a SaaS platform for route optimization, helping businesses efficiently plan and manage last-mile deliveries while improving operational performance.</p>
             </div>
-            <div className="images-container grid grid-rows-2 grid-cols-3 gap-6">
-              <img src="/src/assets/images/cbv-1.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 1" />
-              <img src="/src/assets/images/cbv-2.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 2" />
-              <img src="/src/assets/images/cbv-3.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 3" />
-              <img src="/src/assets/images/cbv-4.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 1" />
-              <img src="/src/assets/images/cbv-5.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 2" />
-              <img src="/src/assets/images/cbv-6.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 3" /> 
-            </div>
-            <a href="#" className="text-[14px] font-medium text-black-900 underline hover:cursor-pointer hover:text-black-900">View Project Details</a>
-          </div>
-          <div className="work-card bg-[#f4f5f6] flex flex-col flex-start text-left rounded-xl p-6 mb-6 gap-6">
-            <div className="flex flex-col gap-4 project-info max-w-[600px] w-full">
-              <img src="/src/assets/images/my-photo.png" className="w-10 h-10 rounded-sm" alt="Project 1" />
-              <div className="flex flex-col gap-1">
-                <h6 className="font-normal text-[16px] leading-[20px] tracking-[0.025em] text-black-900">Job Apply</h6>
-                <p className="font-semibold text-[10px] leading-[12px] tracking-[0.05em] text-black-800">CONSUMER PLATFORM</p>
+            <div onClick={() => handleItemClick(2)} className={`work-listing cursor-pointer transition-all flex flex-col items-start gap-3 p-4 project-info max-w-[600px] rounded-lg w-full ${activeIndex === 2 ? "work-active" : ""}`}>
+                <div className="flex flex-col gap-1">
+                  <h6 className="font-normal text-[16px] text-left leading-[20px] tracking-[0.025em] text-black-900">Job Apply</h6>
+                  <p className="font-semibold text-[10px] text-left leading-[12px] tracking-[0.05em] text-black-800">CONSUMER PLATFORM</p>
+                </div>
+              <p className="text-[12px] text-left font-light leading-[24px] tracking-[0.05em] text-black-80">Designed a platform that helps users easily create professional CVs and tailored cover letters through a structured yet flexible application flow.</p>
+              <div className="flex flex-row gap-2 items-center"> 
+                <a href="#" className={`text-[12px] font-medium text-black-900 underline transition-all ${activeIndex === 2 ? "block" : "hidden"}`}>View Project Details</a>
+                <FiArrowRight size={12} className={`${activeIndex === 2 ? "block" : "hidden"}`} />
               </div>
-              <p className="text-[14px] font-light leading-[24px] tracking-[0.05em] text-black-80">Designed a platform that helps users easily create professional CVs and tailored cover letters through a structured yet flexible application flow.</p>
             </div>
-            <div className="images-container grid grid-rows-2 grid-cols-3 gap-6">
-              <img src="/src/assets/images/jbaply-1.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 1" />
-              <img src="/src/assets/images/jbaply-2.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 2" />
-              <img src="/src/assets/images/jbaply-3.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 3" />
-              <img src="/src/assets/images/jbaply-4.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 1" />
-              <img src="/src/assets/images/jbaply-5.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 2" />
-              <img src="/src/assets/images/jbaply-6.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 3" /> 
-            </div>
-            <a href="#" className="text-[14px] font-medium text-black-900 underline hover:cursor-pointer hover:text-black-900">View Project Details</a>
-          </div>
-          <div className="work-card bg-[#f4f5f6] flex flex-col flex-start text-left rounded-xl p-6 mb-6 gap-6">
-            <div className="flex flex-col gap-4 project-info max-w-[600px] w-full">
-              <img src="/src/assets/images/my-photo.png" className="w-10 h-10 rounded-sm" alt="Project 1" />
-              <div className="flex flex-col gap-1">
-                <h6 className="font-normal text-[16px] leading-[20px] tracking-[0.025em] text-black-900">Employment Care</h6>
-                <p className="font-semibold text-[10px] leading-[12px] tracking-[0.05em] text-black-800">B2B CAREER TRANSITION PLATFORM</p>
+            <div onClick={() => handleItemClick(3)} className={`work-listing cursor-pointer transition-all flex flex-col items-start gap-3 p-4 project-info max-w-[600px] rounded-lg w-full ${activeIndex === 3 ? "work-active" : ""}`}>
+                <div className="flex flex-col gap-1">
+                  <h6 className="font-normal text-[16px] text-left leading-[20px] tracking-[0.025em] text-black-900">Employment Care</h6>
+                  <p className="font-semibold text-[10px] text-left leading-[12px] tracking-[0.05em] text-black-800">B2B CAREER TRANSITION PLATFORM</p>
+                </div>
+              <p className="text-[12px] text-left font-light leading-[24px] tracking-[0.05em] text-black-80">Designed a company-sponsored platform that helps transitioning employees prepare for their next role through guided career planning, job documents, networking, and application tracking.</p>
+              <div className="flex flex-row gap-2 items-center"> 
+                <a href="#" className={`text-[12px] font-medium text-black-900 underline transition-all ${activeIndex === 3 ? "block" : "hidden"}`}>View Project Details</a>
+                <FiArrowRight size={12} className={`${activeIndex === 3 ? "block" : "hidden"}`} />
               </div>
-              <p className="text-[14px] font-light leading-[24px] tracking-[0.05em] text-black-80">Designed a company-sponsored platform that helps transitioning employees prepare for their next role through guided career planning, job documents, networking, and application tracking.</p>
             </div>
-            <div className="images-container grid grid-rows-2 grid-cols-3 gap-6">
-              <img src="/src/assets/images/empc-1.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 1" />
-              <img src="/src/assets/images/empc-2.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 2" />
-              <img src="/src/assets/images/empc-3.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 3" />
-              <img src="/src/assets/images/empc-4.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 1" />
-              <img src="/src/assets/images/empc-5.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 2" />
-              <img src="/src/assets/images/empc-6.png" className="w-full h-full object-cover rounded-md" alt="Project 1 Image 3" /> 
-            </div>
-            <a href="#" className="text-[14px] font-medium text-black-900 underline hover:cursor-pointer hover:text-black-900">View Project Details</a>
           </div>
+          <div className="work-visuals col-span-2 bg-slate-300 w-full rounded-lg">
+            {activeIndex === 0 && (
+              <img src="/src/assets/images/cblk-1.png" alt="CubiLock preview" className="w-full h-full object-cover rounded-lg" />
+            )}
+            {activeIndex === 1 && (
+              <img src="/src/assets//images/cbv-1.png" alt="CubiVue preview" className="w-full h-full object-cover rounded-lg" />
+            )}
+            {activeIndex === 2 && (
+              <img src="/src/assets//images/jbaply-1.png" alt="Job Apply preview" className="w-full h-full object-cover rounded-lg" />
+            )}
+            {activeIndex === 3 && (
+              <img src="/src/assets//images/empc-1.png" alt="Employment Care preview" className="w-full h-full object-cover rounded-lg" />
+            )}
+          </div> 
         </div>
       </div>
 

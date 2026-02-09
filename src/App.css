@@ -22,3 +22,39 @@ img {
   width: 56px;
   height: 56px;
 }
+
+.work-active{
+  /* border-top: 5px solid black; */
+  position: relative;
+  overflow: hidden;
+  background-color: #cccccc30;
+}
+
+.work-active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  overflow: hidden;
+  height: 5px;
+  width: 0;
+
+  background-color: black;
+
+  animation: workProgress 5s linear forwards;
+}
+
+.work-active:hover::before {
+  animation-play-state: paused;
+  overflow: hidden;
+}
+
+@keyframes workProgress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
