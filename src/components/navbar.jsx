@@ -1,3 +1,6 @@
+import '../App.css'
+
+
 function Navbar() {
   return (
     <nav className="w-full py-6 px-[32px] flex items-center justify-between">
@@ -7,16 +10,16 @@ function Navbar() {
 
       {/* Navigation Links */}
       <div className="flex items-center gap-4">
-        <a href="#home" className="text-[12px] font-normal tracking-[0.05em] text-[#000] hover:opacity-80 transition">
+        <a href="#home" className="nav-link text-[12px] w-10 font-bold tracking-[0.0125em] text-[#000]">
           Home
         </a>
-        <a href="#work" className="text-[12px] font-normal tracking-[0.05em] text-[#000] hover:opacity-80 transition">
+        <a href="#work" className="nav-link text-[12px] w-10 font-normal tracking-[0.0125em] text-[#000]">
           Work
         </a>
-        <a href="#about" className="text-[12px] font-normal tracking-[0.05em] text-[#000] hover:opacity-80 transition">
+        <a href="#about" className="nav-link text-[12px] w-10 font-normal tracking-[0.0125em] text-[#000]">
           About
         </a>
-        <a href="#resume" className="text-[12px] font-normal tracking-[0.05em] text-[#000] hover:opacity-80 transition">
+        <a href="#resume" className="nav-link text-[12px] font-normal tracking-[0.0125em] text-[#000]">
           Download Resume
         </a>
       </div>
